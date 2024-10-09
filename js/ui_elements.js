@@ -10,12 +10,12 @@ var UI = {
             params = {};
         }
         if (params.backgroundColor == undefined)
-            params.backgroundColor = 0xEEEEEE;
+            params.backgroundColor = 0x01362f;
         if (params.textStyle == undefined) {
             params.textStyle = {
                 fontFamily : 'Arial', 
                 fontSize: 24, 
-                fill : 0x000000
+                fill : 0xEEEEEE
             }
         }
 
@@ -29,16 +29,17 @@ var UI = {
             ourButton.y = y;
 
         var buttonBody = new PIXI.Graphics();
-            buttonBody.beginFill(params.backgroundColor);
-            buttonBody.drawRect(0, 0, 200, 100);
+            buttonBody.fill(params.backgroundColor);
+            buttonBody.filletRect(0, 0, 150, 75, 10);
+            buttonBody.fill();
             ourButton.addChild(buttonBody);
 
             ourButton.body = buttonBody;
         
-        var buttonText = new PIXI.Text(text,params.textStyle);
+        var buttonText = new PIXI.Text(text, params.textStyle);
             buttonText.anchor.set(.5,.5);
-            buttonText.x = 100;
-            buttonText.y = 50;
+            buttonText.x = 75;
+            buttonText.y = 37.5;
             ourButton.addChild(buttonText);
 
             ourButton.label = buttonText;
@@ -66,7 +67,7 @@ var UI = {
 
         //Hover listeners
         ourButton.pointerover = function (e) {
-            ourButton.alpha = 0.9;
+            ourButton.alpha = 0.7;
         };
         ourButton.on("pointerover",(e) => ourButton.pointerover(e));
         
@@ -74,6 +75,11 @@ var UI = {
             ourButton.alpha = 1.0;
         };
         ourButton.on("pointerout",(e) => ourButton.pointerout(e));
+
+        ourButton.pointerupoutside = function (e) {
+            ourButton.alpha = 1.0;
+        };
+        ourButton.on("pointerupoutside",(e) => ourButton.pointerupoutside(e));
 
         return ourButton;
 
